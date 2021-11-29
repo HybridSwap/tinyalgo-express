@@ -64,10 +64,6 @@ async function is_opted_in() {
 is_opted_in().then(data => {
     if(!data) {
         console.log('Account not opted into app...')
-        /*transaction_group = client.prepare_app_optin_transactions()
-        transaction_group.sign_with_private_key(account['address'], account['private_key'])
-        result = client.submit(transaction_group, wait=True)
-        */
     }
 else { console.log(user_address + " is opted in") }
 })
