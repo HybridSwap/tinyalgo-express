@@ -1,0 +1,11 @@
+{
+    "type": "module",
+    "dependencies": {
+        "algosdk": "^1.12.0",
+        "serve": "^13.0.2"
+    },
+    "scripts": {
+        "test": "node swap.js",
+        "start": "serve ."
+    }
+}

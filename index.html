@@ -1,0 +1,52 @@
+<div align="center">
+<button onclick="connect()">Connect to MyAlgo</button><br>
+<h2 id="address"></h2>
+<select id="typeselect" onchange="handleChange()"><option>Algo->HDL</option><option>HDL->Algo</option></select>
+<h1 id="quote"></h1>
+<button onclick="swap()">SWAP!</button>
+<script
+  src="https://unpkg.com/algosdk@1.13.0-beta.1/dist/browser/algosdk.min.js"
+  integrity="sha384-w9fodN00YjvWxdNoiyT+W6CqaATkXlfid9tnzBlToDqZWepVWLjI5wO7jNL4+aNs"
+  crossorigin="anonymous"
+></script>
+<script src="swap.js"></script>
+<script src="myalgo.min.js"></script>
+<script>
+    var txid = ""
+    const myAlgoWallet = new MyAlgoConnect();
+    function swap(){
+        txid = ""
+        prepare_swap_transactions().then(txns => {
+            let mySigned = [txns[0],txns[2]];
+           myAlgoWallet.signTransaction(mySigned.map(txn => txn.toByte())).then(data => {
+               txns[0] = data[0].blob;
+               txns[2] = data[1].blob
+               txns[1] = algosdk.signLogicSigTransaction(txns[1],lsig).blob
+               txns[3] = algosdk.signLogicSigTransaction(txns[3],lsig).blob
+               console.log(txns)
+               try{
+                   algodClient.sendRawTransaction(txns).do().then(response => {console.log(response)})
+               }
+               catch(error){console.log(error)}
+            });
+        })
+    }
+        function connect(){
+        myAlgoWallet.connect().then(data => {
+            user_address = data[0].address
+            document.getElementById("address").innerText = user_address
+        })
+    //const addresses = accounts.map(account => account.address);
+    }
+
+    function handleChange(){
+        let type = document.getElementById("typeselect").value
+        if (type === "Algo->HDL"){inputIsAlgo = true}
+        else{inputIsAlgo = false}
+        getPoolInfo(pool).then(data => {
+            document.getElementById("quote").innerText = "$" + data.toFixed(2) / 1000000;
+        })
+        
+        }
+</script>
+</div>
