@@ -1,8 +1,9 @@
 <div align="center">
 <button onclick="connect()">Connect to MyAlgo</button><br>
 <h2 id="address"></h2>
-<select id="typeselect" onchange="handleChange()"><option>Algo->HDL</option><option>HDL->Algo</option></select>
-<h1 id="quote"></h1>
+<select id="typeselect" onchange="handleChange()"><option>Algo->HDL</option><option>HDL->Algo</option></select><br>
+<input id="amount" type="number" onchange="changeAmount()"/><br>
+<h3 id="quote"></h3>
 <button onclick="swap()">SWAP!</button>
 <script
   src="https://unpkg.com/algosdk@1.13.0-beta.1/dist/browser/algosdk.min.js"
@@ -14,6 +15,10 @@
 <script>
     var txid = ""
     const myAlgoWallet = new MyAlgoConnect();
+    function changeAmount(){
+        amount = parseInt(document.getElementById("amount").value * 1000000);
+        handleChange();
+    }
     function swap(){
         txid = ""
         prepare_swap_transactions().then(txns => {
@@ -44,7 +49,8 @@
         if (type === "Algo->HDL"){inputIsAlgo = true}
         else{inputIsAlgo = false}
         getPoolInfo(pool).then(data => {
-            document.getElementById("quote").innerText = "$" + data.toFixed(2) / 1000000;
+            let end = inputIsAlgo?" HDL's":" Algos";
+            document.getElementById("quote").innerText = "Quote: You will receive approx: " + (data / 1000000).toFixed(2) + end;
         })
         
         }
