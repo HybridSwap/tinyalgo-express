@@ -8,8 +8,6 @@ const SWAP_APP_ARGUMENT = "c3dhcA=="
 
 const bytecode = "BCAIAQAAAwS2jM5BBQYhBSQNRDEJMgMSRDEVMgMSRDEgMgMSRDIEIg1EMwEAMQASRDMBECEHEkQzARiBzfuGpwESRDMBGSISMwEbJRIQNwEaAIAJYm9vdHN0cmFwEhBAAFwzARkjEkQzARuBAhI3ARoAgARzd2FwEhBAAhMzARsiEkQ3ARoAgARtaW50EkABOTcBGgCABGJ1cm4SQAGDNwEaAIAGcmVkZWVtEkACMzcBGgCABGZlZXMSQAJQACEGIQQkIxJNMgQSRDcBGgEXIQUSNwEaAhckEhBEMwIAMQASRDMCECUSRDMCISMSRDMCIiMcEkQzAiMhBxJEMwIkIxJEMwIlgAdUTTFQT09MEkQzAiZRAA2ADVRpbnltYW4gUG9vbCASRDMCJ4ATaHR0cHM6Ly90aW55bWFuLm9yZxJEMwIpMgMSRDMCKjIDEkQzAisyAxJEMwIsMgMSRDMDADEAEkQzAxAhBBJEMwMRIQUSRDMDFDEAEkQzAxIjEkQkIxNAABAzAQEzAgEIMwMBCDUBQgGJMwQAMQASRDMEECEEEkQzBBEkEkQzBBQxABJEMwQSIxJEMwEBMwIBCDMDAQgzBAEINQFCAVQyBCEGEkQ3ARwBMQATRDcBHAEzBBQSRDMCADEAE0QzAhQxABJEMwMAMwIAEkQzAxQzAwczAxAiEk0xABJEMwQAMQASRDMEFDMCABJEMwEBMwQBCDUBQgD8MgQhBhJENwEcATEAE0Q3ARwBMwIUEkQzAxQzAwczAxAiEk03ARwBEkQzAgAxABJEMwIUMwQAEkQzAwAxABJEMwMUMwMHMwMQIhJNMwQAEkQzBAAxABNEMwQUMQASRDMBATMCAQgzAwEINQFCAI4yBCEEEkQ3ARwBMQATRDMCADcBHAESRDMCADEAE0QzAwAxABJEMwIUMwIHMwIQIhJNMQASRDMDFDMDBzMDECISTTMCABJEMwEBMwMBCDUBQgA8MgQlEkQ3ARwBMQATRDMCFDMCBzMCECISTTcBHAESRDMBATMCAQg1AUIAETIEJRJEMwEBMwIBCDUBQgAAMwAAMQATRDMABzEAEkQzAAg0AQ9D"
 
-const bytecode2 = ""
-
 function _base64ToArrayBuffer(base64) {
   var binary_string = window.atob(base64);
   var len = binary_string.length;
@@ -113,18 +111,6 @@ function fixedInQuote(asset_in_amount,output_supply,input_supply){
     return amount_out
 }
 
-/* function prepare_swap_transactions_from_quote(quote: SwapQuote, swapper_address=None){
-return prepare_swap_transactions(
-    amount_in=quote.amount_in_with_slippage,
-    amount_out=quote.amount_out_with_slippage,
-    swap_type=quote.swap_type,
-    swapper_address = user_address,
-)
-} */
-
-
-
-
 async function prepare_swap_transactions(){
 
   const SuggestedParams = await algodClient.getTransactionParams().do();
@@ -189,8 +175,6 @@ txns = algosdk.assignGroupID(txns)
 
 console.log(txns)
 
-//txn_group = TransactionGroup(txns)
-//txn_group.sign_with_logicisg(pool_logicsig)
 return txns
 }
 
